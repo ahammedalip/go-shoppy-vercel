@@ -295,7 +295,7 @@ adminController.getAdminDash = async (req, res) => {
 adminController.getSalesReportPage = async (req, res) => {
     try {
         const salesChart = await order.find({ orderStatus: "Delivered" }).populate('userId').populate('products.productId');
-        // console.log('sales delivered', salesChart)
+       
         res.render('../views/admin_views/salesreport', { salesChart })
     }
     catch (error) {
@@ -561,7 +561,8 @@ adminController.UpdateProduct = async (req, res) => {
 adminController.getTotalOrderList = async (req, res) => {
     try {
         const orderList = await order.find().populate('userId').populate('products.productId')
-        const user = await userModel.find()
+        // const user = await userModel.find() 
+        console.log('order list from total orders', orderList);
         res.render('../views/admin_views/totalOrder', { orderList })
     }
     catch (error) {

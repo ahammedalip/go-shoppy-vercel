@@ -5,15 +5,11 @@
   <div class="" style="margin-left: 240px; width:auto; padding-top: 30px; padding-left: 20px;">
 
     <% if(orderList.length===0){ %>
-
-
       <h3>Order list is empty</h3>
-
-      <% } else { %>
+    <% } else { %>
         <h3>Orders</h3>
-        <div class="table-responsive">
-
-          <table class="table">
+        <div class="table-responsive" style="padding: 3rem;">
+          <table class="table table-hover" >
             <thead>
               <tr>
                 <th>Order Id</th>
@@ -24,7 +20,8 @@
                 <th>Total Amount</th>
                 <th>Order Status</th>
                 <th>Payment Method</th>
-                
+                <th>Details</th>
+
               </tr>
             </thead>
             <tbody>
@@ -38,8 +35,12 @@
                     <%= order.orderDate.toDateString() %>
                   </td>
                   <td>
-                    <%= order.userId.firstName %>
-                  </td>
+                    <% if (order.userId) { %>
+                        <%= order.userId.firstName %>
+                    <% } else { %>
+                        Unknown User
+                    <% } %>
+                </td>
 
 
                   <td>
@@ -71,12 +72,13 @@
                           </option>
                           <option value="Delivered" <%=order.orderStatus==='Delivered' ? 'selected' : '' %>>Delivered
                           </option>
-                          <option value="return_req" <%=order.orderStatus==='return_req' ? 'selected' : '' %>> Return req.std
+                          <option value="return_req" <%=order.orderStatus==='return_req' ? 'selected' : '' %>> Return
+                            req.std
                           </option>
                           <option value="Returned" <%=order.orderStatus==='Returned' ? 'selected' : '' %>> Returned
                           </option>
                         </select>
-                      </td> 
+                      </td>
                       <% } %>
 
 
@@ -84,11 +86,12 @@
                         <td>
                           <%= order.paymentMethod %>
                         </td>
-                        <td><a style="text-decoration: none;" href="/admin/order/details/<%= order._id %>">Details</a></td>
+                        <td><a style="text-decoration: none; color: red;" href="/admin/order/details/<%= order._id %>">Details</a>
+                        </td>
                 </tr>
                 <% }); %>
                   <% } %>
-                  
+
             </tbody>
           </table>
         </div>
